@@ -40,8 +40,8 @@ def vs_wm(full_raster, dest_folder, lrc, ulc, subset_size=0.5, name='water_mask_
     if x1 < x0 or y1 < y0:
         raise ValueError('Study area extent incorrect - please check coordinates.')
     
-    xext = np.arange(x0, x1, 1)
-    yext = np.arange(y0, y1, 1)
+    xext = np.arange(x0, x1, subset_size*2)
+    yext = np.arange(y0, y1, subset_size*2)
     
     
     ds = gdal.Open(full_raster)
@@ -74,8 +74,8 @@ if __name__ == '__main__':
     if not os.path.exists(dest_folder):
         os.mkdir(dest_folder)
         
-    ulc = (26.0, -15.4)
-    lrc = (28.2, -15.9)
+    ulc = (26.0, -15.4) #Give the extent in full degrees - fractions of degrees will not work wit subset_size=0.5. Need to think about how to generalize.
+    lrc = (28.2, -15.9) #Give the extent in full degrees - fractions of degrees will not work
     name='water_mask_'
     
-    vs_wm(full_raster, dest_folder, lrc, ulc, subset_size=0.5, name=name)
+    vs_wm(full_raster, dest_folder, lrc, ulc, subset_size=0.5, name=name) #Subset size must be consistent with numpy arange in lines 43/44
