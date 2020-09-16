@@ -60,7 +60,7 @@ def vs_wm(full_raster, dest_folder, lrc, ulc, subset_size=0.5, name='water_mask_
         
             translateoptions = gdal.TranslateOptions(gdal.ParseCommandLine("-of Gtiff -co COMPRESS=LZW -projwin " + extent))
         
-            dst_filename = dest_folder + 'subset_' + str(np.round(x, 1)) + '_' + str(np.round(y, 1)) + '.tif'
+            dst_filename = dest_folder + 'subset_' + str(int(np.round(x, 0))) + '_' + str(int(np.round(y, 0))) + '.tif' # The way the filename is made here should be consistent with what is done in s3_utils. This is a quick and dirty solution for subset_size = 0.5 but should probably be generalized.
             ds_out = gdal.Translate(dst_filename, ds, options = translateoptions)
             ds_out = None
     
