@@ -120,7 +120,7 @@ def outlier_filter(p, nc, wm_folder, selected, dem_filter, lat, lon, sigma0, sig
     (x, y) = p
     
     # Get water mask
-    src_filename = os.path.join(wm_folder, 'JRC' + '_' + str(np.round(x, 2)) + '_' + str(np.round(y, 2)) + '.tif')
+    src_filename = os.path.join(wm_folder, 'subset' + '_' + str(int(np.round(x, 0))) + '_' + str(int(np.round(y, 0))) + '.tif') # needs to be consistent with what is done in crop_raster. This works for subset-size=0.5, but should probably be generalized
     src_ds=gdal.Open(src_filename) 
     rb=src_ds.GetRasterBand(1)
     gt=src_ds.GetGeoTransform() #geotransform
@@ -161,7 +161,7 @@ def wm_outliers(p, nc, wm_folder, selected, dem_filter, lat, lon, sigma0, sigma_
     (x, y) = p
     
     # Get water mask
-    src_filename = os.path.join(wm_folder, 'JRC' + '_' + str(np.round(x, 2)) + '_' + str(np.round(y, 2)) + '.tif')
+    src_filename = os.path.join(wm_folder, 'subset' + '_' + str(int(np.round(x, 0))) + '_' + str(int(np.round(y, 0))) + '.tif')
     src_ds=gdal.Open(src_filename) 
     rb=src_ds.GetRasterBand(1)
     gt=src_ds.GetGeoTransform() #geotransform
